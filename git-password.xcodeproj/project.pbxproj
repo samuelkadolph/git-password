@@ -1,0 +1,198 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C6B05E6A133B89490019AB40 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C6B05E69133B89490019AB40 /* main.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C6B05E63133B89490019AB40 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C6B05E65133B89490019AB40 /* git-password */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "git-password"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6B05E69133B89490019AB40 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C6B05E6B133B89490019AB40 /* git_password.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = git_password.1; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C6B05E62133B89490019AB40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C6B05E5A133B89490019AB40 = {
+			isa = PBXGroup;
+			children = (
+				C6B05E68133B89490019AB40 /* git-password */,
+				C6B05E66133B89490019AB40 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C6B05E66133B89490019AB40 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C6B05E65133B89490019AB40 /* git-password */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6B05E68133B89490019AB40 /* git-password */ = {
+			isa = PBXGroup;
+			children = (
+				C6B05E69133B89490019AB40 /* main.c */,
+				C6B05E6B133B89490019AB40 /* git_password.1 */,
+			);
+			path = "git-password";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C6B05E64133B89490019AB40 /* git-password */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6B05E6E133B89490019AB40 /* Build configuration list for PBXNativeTarget "git-password" */;
+			buildPhases = (
+				C6B05E61133B89490019AB40 /* Sources */,
+				C6B05E62133B89490019AB40 /* Frameworks */,
+				C6B05E63133B89490019AB40 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "git-password";
+			productName = "git-password";
+			productReference = C6B05E65133B89490019AB40 /* git-password */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C6B05E5C133B89490019AB40 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C6B05E5F133B89490019AB40 /* Build configuration list for PBXProject "git-password" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C6B05E5A133B89490019AB40;
+			productRefGroup = C6B05E66133B89490019AB40 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C6B05E64133B89490019AB40 /* git-password */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C6B05E61133B89490019AB40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6B05E6A133B89490019AB40 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C6B05E6C133B89490019AB40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C6B05E6D133B89490019AB40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C6B05E6F133B89490019AB40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C6B05E70133B89490019AB40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C6B05E5F133B89490019AB40 /* Build configuration list for PBXProject "git-password" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6B05E6C133B89490019AB40 /* Debug */,
+				C6B05E6D133B89490019AB40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6B05E6E133B89490019AB40 /* Build configuration list for PBXNativeTarget "git-password" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6B05E6F133B89490019AB40 /* Debug */,
+				C6B05E70133B89490019AB40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C6B05E5C133B89490019AB40 /* Project object */;
+}
