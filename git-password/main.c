@@ -7,6 +7,7 @@
 //
 
 #include <pwd.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -107,13 +108,13 @@ static struct KeyChainItem
 };
 typedef struct KeyChainItem KeyChainItem;
 
-static KeyChainItem * find_keychain_item(char * repository, FILE * terminal)
+static KeyChainItem * find_keychain_item(char * repository, bool include_password, FILE * terminal)
 {
 	SecKeychainItemRef item;
 	SecKeychainAttributeInfo * info;
 	SecKeychainAttributeList * attributes;
 	void * password;
-	UInt32 passwordLen;
+	UInt32 password_length;
 	OSStatus status;
 	KeyChainItem * result = NULL;
 
@@ -124,7 +125,11 @@ static KeyChainItem * find_keychain_item(char * repository, FILE * terminal)
 			result = malloc(sizeof(KeyChainItem));
 
 			security(SecKeychainAttributeInfoForItemID(NULL, CSSM_DL_DB_RECORD_GENERIC_PASSWORD, &info), terminal);
-			security(SecKeychainItemCopyAttributesAndData(item, info, NULL, &attributes, &passwordLen, &password), terminal);
+
+			if (include_password)
+				security(SecKeychainItemCopyAttributesAndData(item, info, NULL, &attributes, &password_length, &password), terminal);
+			else
+				security(SecKeychainItemCopyAttributesAndData(item, info, NULL, &attributes, NULL, NULL), terminal);
 
 			for (int i = 0; i < attributes->count; i++)
 			{
@@ -138,11 +143,22 @@ static KeyChainItem * find_keychain_item(char * repository, FILE * terminal)
 				}
 			}
 
-			result->password = malloc(passwordLen + 1);
-			strncpy(result->password, password, passwordLen);
-			result->password[passwordLen] = 0;
+			if (include_password)
+			{
+				result->password = malloc(password_length + 1);
+				strncpy(result->password, password, password_length);
+				result->password[password_length] = 0;
+			}
+			else
+			{
+				result->password = NULL;
+			}
 
-			SecKeychainItemFreeAttributesAndData(attributes, password);
+			if (include_password)
+				SecKeychainItemFreeAttributesAndData(attributes, password);
+			else
+				SecKeychainItemFreeAttributesAndData(attributes, NULL);
+
 			SecKeychainFreeAttributeInfo(info);
 
 			break;
@@ -184,7 +200,7 @@ static char * prompt(char * prompt)
 static char * get_username(FILE * terminal)
 {
 	char * repository = git_origin_url(terminal), * username = NULL, * password = NULL;
-	KeyChainItem * item = find_keychain_item(repository, terminal);
+	KeyChainItem * item = find_keychain_item(repository, false, terminal);
 
 	if (item)
 	{
@@ -203,7 +219,7 @@ static char * get_username(FILE * terminal)
 static char * get_password(FILE * terminal)
 {
 	char * repository = git_origin_url(terminal), * password = NULL;
-	KeyChainItem * item = find_keychain_item(repository, terminal);
+	KeyChainItem * item = find_keychain_item(repository, true, terminal);
 
 	if (item)
 	{
@@ -214,7 +230,7 @@ static char * get_password(FILE * terminal)
 		password = prompt("Password: ");
 		create_keychain_item(repository, "", password, terminal);
 	}
-	
+
 	return password;
 }
 
