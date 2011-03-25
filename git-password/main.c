@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/sysctl.h>
 #include <unistd.h>
 
 #include <CoreFoundation/CoreFoundation.h>
@@ -49,6 +50,26 @@ static char * trim_trailing_whitespace(char * string)
 		string[length - 1] = 0;
 
 	return string;
+}
+
+static int is_git_calling_us(FILE * terminal)
+{
+	int name[] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL };
+	pid_t parent_pid = getppid();
+	struct kinfo_proc * processes = NULL;
+	size_t size = 0;
+
+	if (sysctl(name, 3, NULL, &size, NULL, 0) != 0) fatal("sysctl failed", terminal);
+	if ((processes = malloc(size)) == NULL) fatal("unable to allocate memory", terminal);
+	if (sysctl(name, 3, processes, &size, NULL, 0) != 0) fatal("sysctl failed", terminal);
+
+	for (int i = 0; i < size / sizeof(struct kinfo_proc); i++)
+	{
+		struct extern_proc process = processes[i].kp_proc;
+		if (parent_pid == process.p_pid && strcmp(process.p_comm, "git-remote-https") == 0) return 1;
+	}
+
+	return 0;
 }
 
 static char * git_config(char * key, FILE * terminal)
@@ -201,10 +222,11 @@ int main(int argc, const char * argv[])
 {
 	FILE * terminal = fdopen(2, "r+");
 
-	if (argc != 2) fatal("can only be called by git", terminal);
+	if (!is_git_calling_us(terminal)) fatal("can only be used by git", terminal);
+	if (argc != 2) fatal("can only be used by git", terminal);
 	if (strcmp(argv[1], "Username: ") == 0) printf("%s", get_username(terminal));
 	else if (strcmp(argv[1], "Password: ") == 0) printf("%s", get_password(terminal));
-	else fatal("can only be called by git", terminal);
+	else fatal("can only be used by git", terminal);
 
-	return(0);
+	return 0;
 }
