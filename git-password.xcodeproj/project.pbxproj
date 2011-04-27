@@ -30,6 +30,7 @@
 		C6B05E6B133B89490019AB40 /* git_password.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = git_password.1; sourceTree = "<group>"; };
 		C6B05E89133B9B8F0019AB40 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		C6B05E8C133B9B940019AB40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		E57D03AB1368609900FF2676 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +49,7 @@
 		C6B05E5A133B89490019AB40 = {
 			isa = PBXGroup;
 			children = (
+				E57D03AB1368609900FF2676 /* LICENSE */,
 				C6B05E8C133B9B940019AB40 /* Security.framework */,
 				C6B05E89133B9B8F0019AB40 /* CoreFoundation.framework */,
 				C6B05E68133B89490019AB40 /* git-password */,
