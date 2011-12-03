@@ -256,8 +256,8 @@ int main(int argc, const char * argv[])
 
 	if (!is_git_calling_us(terminal)) fatal("can only be used by git", terminal);
 	if (argc != 2) fatal("can only be used by git", terminal);
-	if (strcmp(argv[1], "Username: ") == 0) printf("%s", get_username(terminal));
-	else if (strcmp(argv[1], "Password: ") == 0) printf("%s", get_password(terminal));
+	if (strstr(argv[1], "Username") != NULL) printf("%s", get_username(terminal));
+	else if (strstr(argv[1], "Password") != NULL) printf("%s", get_password(terminal));
 	else fatal("can only be used by git", terminal);
 
 	return 0;
