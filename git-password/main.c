@@ -202,7 +202,7 @@ static void create_keychain_item(char * repository, char * username, char * pass
 	security(SecKeychainItemCreateFromContent(class, &attribute_list, len(password), password, NULL, NULL, NULL), terminal);
 }
 
-static char * prompt(char * prompt)
+static char * prompt(const char * prompt)
 {
 	char * temp = getpass(prompt);
 	char * value = malloc(strlen(temp) + 1);
@@ -213,7 +213,7 @@ static char * prompt(char * prompt)
 	return value;
 }
 
-static char * get_username(FILE * terminal)
+static char * get_username(FILE * terminal, const char* prompt_str)
 {
 	char * repository = git_origin_url(terminal), * username = NULL, * password = NULL;
 	KeyChainItem * item = find_keychain_item(repository, false, terminal);
@@ -224,7 +224,7 @@ static char * get_username(FILE * terminal)
 	}
 	else
 	{
-		username = prompt("Username: ");
+		username = prompt(prompt_str);
 		password = prompt("Password: ");
 		create_keychain_item(repository, username, password, terminal);
 	}
@@ -232,7 +232,7 @@ static char * get_username(FILE * terminal)
 	return username;
 }
 
-static char * get_password(FILE * terminal)
+static char * get_password(FILE * terminal, const char* prompt_str)
 {
 	char * repository = git_origin_url(terminal), * password = NULL;
 	KeyChainItem * item = find_keychain_item(repository, true, terminal);
@@ -243,7 +243,7 @@ static char * get_password(FILE * terminal)
 	}
 	else
 	{
-		password = prompt("Password: ");
+		password = prompt(prompt_str);
 		create_keychain_item(repository, "", password, terminal);
 	}
 
@@ -254,11 +254,13 @@ int main(int argc, const char * argv[])
 {
 	FILE * terminal = fdopen(2, "r+");
 
-	if (!is_git_calling_us(terminal)) fatal("can only be used by git", terminal);
-	if (argc != 2) fatal("can only be used by git", terminal);
-	if (strcmp(argv[1], "Username: ") == 0) printf("%s", get_username(terminal));
-	else if (strcmp(argv[1], "Password: ") == 0) printf("%s", get_password(terminal));
-	else fatal("can only be used by git", terminal);
-
+	if      (!is_git_calling_us(terminal))         fatal("Can only be used by git (git is not the caller)", terminal);
+	if      (argc != 2)                            fatal("Can only be used by git (wrong number of args)",  terminal);
+	if      (strncmp(argv[1], "Username", 8) == 0) printf("%s", get_username(terminal, argv[1]));
+	else if (strncmp(argv[1], "Password", 8) == 0) printf("%s", get_password(terminal, argv[1]));
+	else {
+        fprintf(stderr, "Expected Username or Password, got '%s'\n", argv[1]);
+        fatal("Can only be used by git (prompts were bad)", terminal);
+    }
 	return 0;
 }

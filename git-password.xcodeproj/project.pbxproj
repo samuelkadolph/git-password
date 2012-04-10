@@ -99,6 +99,9 @@
 /* Begin PBXProject section */
 		C6B05E5C133B89490019AB40 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C6B05E5F133B89490019AB40 /* Build configuration list for PBXProject "git-password" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
